@@ -5,7 +5,7 @@ import redisValidation from "./middleware/redisValidation.js";
 import { setveValueOnRedis, getValueOnRedis, checkValueOnRedis } from "./redis/redis.js";
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.get("/data/:location", redisValidation, async (req, res) => {
     const { location } = req.params;
     try {
