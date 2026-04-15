@@ -1,4 +1,4 @@
-import { setveValueOnRedis, getValueOnRedis, checkValueOnRedis } from "../redis/redis.js";
+import { getValueOnRedis, checkValueOnRedis } from "../redis/redis.js";
 export default async function redisValidation(req, res, next) {
     const { location } = req.params;
     try {

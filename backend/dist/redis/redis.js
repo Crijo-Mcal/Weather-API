@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Redis } from "@upstash/redis";
 const redis = Redis.fromEnv();
-export async function setveValueOnRedis(locatio, data) {
+export async function setValueOnRedis(locatio, data) {
     await redis.set(locatio, data, { ex: 3600 });
 }
 export async function getValueOnRedis(location) {
