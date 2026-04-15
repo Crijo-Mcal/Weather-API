@@ -1,0 +1,41 @@
+import { promises } from "dns";
+import dotenv from "dotenv";
+dotenv.config();
+
+const apiKey = process.env.API_KEY;
+const baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
+
+
+export default async function apiCall(location: string): Promise<any> {
+    try {
+        const dates = getDatesange();
+        const respose = await fetch(`${baseUrl}${location}/${dates.date1}/${dates.date2}?key=${apiKey}`)
+
+        if (respose.ok === false) {
+            throw new Error("page not found")
+        }
+        const data = await respose.json();
+
+        return data;
+
+
+    } catch (err: any) {
+        return { err: err.message };
+    }
+}
+
+
+function getDatesange(): { date1: string | undefined, date2: string | undefined } {
+    const today = new Date();
+    const next7Days = new Date();
+
+    next7Days.setDate(today.getDate() + 7);
+
+    const date1 = today.toISOString().split('T')[0];
+    const date2 = next7Days.toISOString().split('T')[0];
+
+    return { date1, date2 }
+}
+
+
+
