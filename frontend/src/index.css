@@ -1,9 +1,30 @@
 @import "tailwindcss";
 
+
+@font-face {
+    font-family: ALpino;
+    src: url("./assets/font/Alpino-Variable.ttf");
+}
+
+
 @theme {
 
     --color-gradient1: #161515;
     --color-gradient2: #0C0C0C;
     --color-bg: #282828;
     --color-primary: #FFFFFF;
+
+    --font-ALpino: "ALpino", sans-serif;
+
+    --radius-default: 10px
+}
+
+
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100vh;
+    /* Menggunakan min-height lebih aman daripada height agar konten tidak terpotong */
 }
