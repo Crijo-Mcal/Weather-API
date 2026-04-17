@@ -37,7 +37,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="relative w-full h-auto mt-6 flex justify-center">
+    <nav className="sticky top-0 md:relative w-full h-20 sm:h-auto  sm:mt-6  flex justify-center items-center z-10  bg-bg sm:bg-transparent">
       <div
         className="w-full max-w-199.5 h-auto flex flex-col gap-1"
         onMouseLeave={() => setIsPopupActive(false)}
@@ -45,7 +45,7 @@ export default function Navbar() {
       >
         {/* FORM */}
         <form
-          className="w-full max-w-199.5 h-9.75 bg-primary rounded-default overflow-hidden flex justify-center"
+          className="w-full max-w-199.5 h-9.75 bg-primary rounded-default overflow-hidden flex justify-center "
           onSubmit={handleSubmitForm}
         >
           <input

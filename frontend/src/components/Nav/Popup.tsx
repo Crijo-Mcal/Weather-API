@@ -12,7 +12,7 @@ export default function PopUp({
   setPopupaCtive,
 }: Props) {
   return (
-    <div className="absolute top-10 w-full max-w-199.5 sm:max-w-90 min-h-20 py-4 bg-primary rounded-default flex flex-col items-center">
+    <div className="absolute top-15 md:top-10 w-full max-w-199.5 sm:max-w-90 min-h-20 py-4 bg-primary rounded-default flex flex-col items-center">
       <h1>Recent</h1>
 
       {history && (
