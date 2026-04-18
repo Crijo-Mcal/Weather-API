@@ -10,28 +10,29 @@ type params = {
 }
 
 router.get(
-    "/weather/:location", (req: Request<params>, res: Response) => {
+    "/weather/:location", async (req: Request<params>, res: Response) => {
         const location = req.params.location;
 
-        res.send(location)
-        /*   try {
-  
-              const dataApiServis = await apiCall(location);
-  
-              if (dataApiServis?.err) throw new Error(dataApiServis.err);
+        try {
+
+            const dataApiServis = await apiCall(location);
+
+            res.send('querry');
+
+            /*   if (dataApiServis?.err) throw new Error(dataApiServis.err);
   
               await setValueOnRedis(location, dataApiServis);
   
               console.log("take data from api service");
   
-              return res.json(dataApiServis);
-  
-          } catch (err) {
-              const message = err instanceof Error ? err.message : "Unknown error";
-              return res.status(400).json({
-                  err: message,
-              });
-          } */
+              return res.json(dataApiServis); */
+
+        } catch (err) {
+            const message = err instanceof Error ? err.message : "Unknown error";
+            return res.status(400).json({
+                err: message,
+            });
+        }
     }
 );
 
