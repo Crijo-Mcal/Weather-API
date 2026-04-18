@@ -17,15 +17,13 @@ router.get(
 
             const dataApiServis = await apiCall(location);
 
-            res.send('querry');
+            if (dataApiServis?.err) throw new Error(dataApiServis.err);
 
-            /*   if (dataApiServis?.err) throw new Error(dataApiServis.err);
-  
-              await setValueOnRedis(location, dataApiServis);
-  
-              console.log("take data from api service");
-  
-              return res.json(dataApiServis); */
+            await setValueOnRedis(location, dataApiServis);
+
+            console.log("take data from api service");
+
+            return res.json(dataApiServis);
 
         } catch (err) {
             const message = err instanceof Error ? err.message : "Unknown error";
