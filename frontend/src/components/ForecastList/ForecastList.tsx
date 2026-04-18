@@ -24,8 +24,8 @@ export default function ForecastList({setDataForChart}: params) {
           onClick={() => setDataForChart(alldata[y + 1])}
         >
           <img className="w-[30px]" src={img} alt="image" />
-          <p> coimbra</p>
-          <p> 12/04/2026 (friday) </p>
+          <p> 12/04/2026 </p>
+          <p>friday</p>
           <h1>90°</h1>
         </div>
       ))}

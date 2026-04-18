@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {AreaChart, Area, ResponsiveContainer, XAxis, YAxis} from "recharts";
 
 type params = {
@@ -7,7 +6,7 @@ type params = {
 
 export default function WeatherChart({dataForChart}: params) {
   return (
-    <div className="w-full  max-w-[893px] h-[149px] bg-bg rounded-default ">
+    <div className="w-full  max-w-[893px] h-[149px] bg-bg md:rounded-default ">
       <ResponsiveContainer>
         <AreaChart
           data={dataForChart}
@@ -21,7 +20,7 @@ export default function WeatherChart({dataForChart}: params) {
             dataKey="temp"
             stroke="none"
             fill="#969899"
-            dot={({cx, cy, value}) => (
+            dot={({cx, cy, payload}) => (
               <g>
                 <circle cx={cx} cy={cy} r={5} fill="#FFFFFF" />
                 <text
@@ -32,7 +31,7 @@ export default function WeatherChart({dataForChart}: params) {
                   fill="#fff"
                   fontSize="16"
                 >
-                  {value}°
+                  {payload.temp}°
                 </text>
               </g>
             )}
@@ -42,23 +41,3 @@ export default function WeatherChart({dataForChart}: params) {
     </div>
   );
 }
-
-const CustomDot = (props: any) => {
-  const {cx, cy, value} = props;
-
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r={5} fill="#FFFFFF" />
-      <text
-        x={cx}
-        y={cy}
-        textAnchor="middle"
-        dy="-10"
-        fill="#fff"
-        fontSize="16"
-      >
-        {value}°
-      </text>
-    </g>
-  );
-};
