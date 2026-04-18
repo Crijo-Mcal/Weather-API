@@ -2,6 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { setValueOnRedis } from "../redis/redis.js";
 import apiCall from "../api/api.js";
 
+
 const router = Router();
 
 type params = {
