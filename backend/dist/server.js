@@ -6,7 +6,7 @@ import { auth } from "./middleware/auth.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use('/api', limiter, auth);
+app.use('/api', limiter);
 /* weather router */
 app.use('/api', weatherRouter);
 app.listen(PORT, () => {
