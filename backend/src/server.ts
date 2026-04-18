@@ -16,7 +16,9 @@ app.get('/', (req, res) => {
 });
 
 /* weather router */
-app.use('/api', weatherRouter)
+app.get('/api/test', (req, res) => {
+  res.send('API TEST OK');
+});
 
 
 app.listen(PORT, () => {
