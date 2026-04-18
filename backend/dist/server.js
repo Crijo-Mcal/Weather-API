@@ -11,10 +11,7 @@ app.get('/', (req, res) => {
     res.send('SERVER RUNNING');
 });
 /* weather router */
-app.get('/api/weather/:location', (req, res) => {
-    const { location } = req.params;
-    res.send(`location ${location}`);
-});
+app.use('/api', weatherRouter);
 app.listen(PORT, () => {
     console.log(`sever open on port ${PORT}`);
 });
