@@ -4,8 +4,15 @@ import imgBg from "./assets/img/bg.webp";
 import Navbar from "./components/Nav/Navbar";
 import WeatherMainCard from "./components/WeatherMainCard/WeatherMainCard";
 import ForecastList from "./components/ForecastList/ForecastList";
+import WeatherChart from "./components/WeatherChart/WeatherChart";
+import {useState} from "react";
+
+/* example data for chart */
+import {alldataexample as alldata} from "./dataSxample/data";
 
 function App() {
+  const [dataForChart, setDataForChart] = useState(alldata[0]);
+
   return (
     <>
       {/* background */}
@@ -19,11 +26,11 @@ function App() {
           <Navbar />
           <div className="w-full h-auto mt-6 flex flex-col gap-4 md:gap-0 md:flex-row justify-evenly items-center ">
             <WeatherMainCard />
-            <ForecastList />
+            <ForecastList setDataForChart={setDataForChart} />
           </div>
 
           <div className="w-full h-auto mt-6 flex justify-center">
-            <div className="w-full  max-w-[893px] h-[149px] bg-bg rounded-default"></div>
+            <WeatherChart dataForChart={dataForChart} />
           </div>
         </section>
       </main>
