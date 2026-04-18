@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api', limiter);
 
+app.get('/', (req, res) => {
+  res.send('SERVER RUNNING');
+});
+
 /* weather router */
 app.use('/api', weatherRouter)
 
