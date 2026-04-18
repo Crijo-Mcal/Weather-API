@@ -16,8 +16,9 @@ app.get('/', (req, res) => {
 });
 
 /* weather router */
-app.get('/api/test', (req, res) => {
-  res.send('API TEST OK');
+app.get('/api/weather/:location', (req, res) => {
+  const { location } = req.params
+  res.send(`location ${location}`);
 });
 
 
