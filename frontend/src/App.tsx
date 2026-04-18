@@ -5,13 +5,25 @@ import Navbar from "./components/Nav/Navbar";
 import WeatherMainCard from "./components/WeatherMainCard/WeatherMainCard";
 import ForecastList from "./components/ForecastList/ForecastList";
 import WeatherChart from "./components/WeatherChart/WeatherChart";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+import apicall from "./api/apiHandle";
 
 /* example data for chart */
 import {alldataexample as alldata} from "./dataSxample/data";
 
 function App() {
   const [dataForChart, setDataForChart] = useState(alldata[0]);
+  const [location, setLocation] = useState("coimbra");
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    async function loadData() {
+      const dataBackend = await apicall(location);
+      setData(dataBackend);
+    }
+    loadData();
+  }, []);
 
   return (
     <>
