@@ -1,5 +1,7 @@
 import img from "../../assets/img/default.png";
 
+import type {WeatherData} from "../../types/WeatherData";
+
 type params = {
   setDataForChart: React.Dispatch<
     React.SetStateAction<
@@ -9,26 +11,30 @@ type params = {
       }[]
     >
   >;
+  data: WeatherData | null;
 };
 
 /* example data for chart */
 import {alldataexample as alldata} from "../../dataSxample/data";
 
-export default function ForecastList({setDataForChart}: params) {
+export default function ForecastList({setDataForChart, data}: params) {
+  const days = data?.days ?? null;
+
   return (
     <section className="relative p-4 gap-2 w-full md:w-106.75 h-74.75 flex flex-col  items-center   bg-bg md:rounded-default overflow-hidden m-2 text-[16px] text-primary  ">
-      {Array.from({length: 6}).map((x, y) => (
-        <div
-          className="flex-1 w-full flex gap-3 justify-between items-center border-[1px] px-2 border-primary rounded-default cursor-pointer"
-          key={y}
-          onClick={() => setDataForChart(alldata[y + 1])}
-        >
-          <img className="w-[30px]" src={img} alt="image" />
-          <p> 12/04/2026 </p>
-          <p>friday</p>
-          <h1>90°</h1>
-        </div>
-      ))}
+      {days &&
+        days.map((x, y) => (
+          <div
+            className="flex-1 w-full flex gap-3 justify-between items-center border-[1px] px-2 border-primary rounded-default cursor-pointer"
+            key={y}
+            onClick={() => setDataForChart(alldata[y + 1])}
+          >
+            <img className="w-[30px]" src={img} alt="image" />
+            <p> 12/04/2026 </p>
+            <p>friday</p>
+            <h1>90°</h1>
+          </div>
+        ))}
     </section>
   );
 }

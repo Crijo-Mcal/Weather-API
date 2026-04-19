@@ -17,7 +17,13 @@ import type {WeatherData} from "./types/WeatherData";
 function App() {
   const [dataForChart, setDataForChart] = useState(alldata[0]);
   const [location, setLocation] = useState("coimbra");
+
+  const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
+
   const [data, setData] = useState<WeatherData | null>(null);
+  const locationName = data?.resolvedAddress ?? null;
+  const day = data?.days?.[selectedDayIndex] ?? null;
+  const [unit, setUnit] = useState<"C" | "F">("C");
 
   useEffect(() => {
     async function loadData() {
@@ -39,8 +45,13 @@ function App() {
         <section className="relative w-full max-w-[953px] h-full  lg:max-h-[605px]   md:rounded-default bg-gradient1 ">
           <Navbar />
           <div className="w-full h-auto mt-6 flex flex-col gap-4 md:gap-0 md:flex-row justify-evenly items-center ">
-            <WeatherMainCard data={data} />
-            <ForecastList setDataForChart={setDataForChart} />
+            <WeatherMainCard
+              day={day}
+              locationName={locationName}
+              unit={unit}
+              setUnit={setUnit}
+            />
+            <ForecastList data={data} setDataForChart={setDataForChart} />
           </div>
 
           <div className="w-full h-auto mt-6 flex justify-center">

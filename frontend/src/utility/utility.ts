@@ -1,4 +1,10 @@
-export function celsiusConverter(value: number): number {
-    const result = (value - 32) * (5 / 9)
-    return Math.round(result);
+type unit = "C" | "F"
+
+export function temperatureConverter(value: number, action: unit): number {
+    if (action == "F") {
+        const result = (value * 9 / 5) + 32
+        return Math.round(result);
+    }
+
+    return Math.round(value);
 }
