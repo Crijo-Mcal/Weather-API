@@ -12,10 +12,12 @@ import apicall from "./api/apiHandle";
 /* example data for chart */
 import {alldataexample as alldata} from "./dataSxample/data";
 
+import type {WeatherData} from "./types/WeatherData";
+
 function App() {
   const [dataForChart, setDataForChart] = useState(alldata[0]);
   const [location, setLocation] = useState("coimbra");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<WeatherData | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -37,7 +39,7 @@ function App() {
         <section className="relative w-full max-w-[953px] h-full  lg:max-h-[605px]   md:rounded-default bg-gradient1 ">
           <Navbar />
           <div className="w-full h-auto mt-6 flex flex-col gap-4 md:gap-0 md:flex-row justify-evenly items-center ">
-            <WeatherMainCard />
+            <WeatherMainCard data={data} />
             <ForecastList setDataForChart={setDataForChart} />
           </div>
 
