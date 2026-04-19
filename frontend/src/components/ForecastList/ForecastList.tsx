@@ -1,38 +1,39 @@
 import img from "../../assets/img/default.png";
+import {temperatureConverter} from "../../utility/utility";
 
+/* type */
 import type {WeatherData} from "../../types/WeatherData";
 
 type params = {
-  setDataForChart: React.Dispatch<
-    React.SetStateAction<
-      {
-        time: string;
-        temp: number;
-      }[]
-    >
-  >;
-  data: WeatherData | null;
+  weatherData: WeatherData | null;
+  temperatureUnit: "C" | "F";
+  selectedDayIndex: number;
+  setSelectedDayIndex: React.Dispatch<React.SetStateAction<number>>;
 };
 
-/* example data for chart */
-import {alldataexample as alldata} from "../../dataSxample/data";
-
-export default function ForecastList({setDataForChart, data}: params) {
-  const days = data?.days ?? null;
+export default function ForecastList({
+  weatherData,
+  temperatureUnit,
+  selectedDayIndex,
+  setSelectedDayIndex,
+}: params) {
+  const days = weatherData?.days ?? null;
 
   return (
-    <section className="relative p-4 gap-2 w-full md:w-106.75 h-74.75 flex flex-col  items-center   bg-bg md:rounded-default overflow-hidden m-2 text-[16px] text-primary  ">
+    <section className="relative p-4 gap-[10px] w-full md:w-106.75 h-auto min-h-74.75 flex flex-wrap justify-center  items-center   bg-bg md:rounded-default overflow-hidden m-2 text-[16px] text-primary  ">
       {days &&
         days.map((x, y) => (
           <div
-            className="flex-1 w-full flex gap-3 justify-between items-center border-[1px] px-2 border-primary rounded-default cursor-pointer"
+            className={`h-23 w-[90px] flex flex-col  justify-center items-center border-[1px] px-2 border-primary rounded-default  cursor-pointer ${selectedDayIndex === y ? "bg-gradient1" : "bg-transparent"}`}
             key={y}
-            onClick={() => setDataForChart(alldata[y + 1])}
+            onClick={() => setSelectedDayIndex(y)}
           >
             <img className="w-[30px]" src={img} alt="image" />
-            <p> 12/04/2026 </p>
             <p>friday</p>
-            <h1>90°</h1>
+            <div className="w-full flex justify-center gap-2 text-[16px]">
+              <h1>{temperatureConverter(days[y].tempmax, temperatureUnit)}°</h1>
+              <h1>{temperatureConverter(days[y].tempmin, temperatureUnit)}°</h1>
+            </div>
           </div>
         ))}
     </section>

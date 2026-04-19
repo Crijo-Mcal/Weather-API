@@ -1,14 +1,12 @@
 type Props = {
   history: string[];
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmitPopup: () => void;
+  setQueryLocation: React.Dispatch<React.SetStateAction<string>>;
   setPopupaCtive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function PopUp({
   history,
-  setValue,
-  handleSubmitPopup,
+  setQueryLocation,
   setPopupaCtive,
 }: Props) {
   return (
@@ -17,13 +15,12 @@ export default function PopUp({
 
       {history && (
         <ol className="w-[90%] flex flex-wrap gap-x-2">
-          {history.map((x) => (
+          {history.map((x, y) => (
             <li
-              key={x}
+              key={y}
               className="w-auto h-7 pl-1 text-slate-500 hover:border-b border-bg cursor-pointer"
               onClick={() => {
-                setValue(x);
-                handleSubmitPopup();
+                setQueryLocation(x);
                 setPopupaCtive(false);
               }}
             >

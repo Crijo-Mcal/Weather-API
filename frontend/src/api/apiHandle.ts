@@ -5,7 +5,7 @@ import type { WeatherData } from "../types/WeatherData";
 export default async function apicall(location: string): Promise<WeatherData> {
 
     try {
-        const response = await fetch(`https://weather-api-oeta.onrender.com/api/weather/${location}?unitGroup=metric&key=${api_key}`)
+        const response = await fetch(`https://weather-api-oeta.onrender.com/api/weather/${location}?key=${api_key}`)
         if (response.ok === false) {
             throw new Error("connection fale");
         }

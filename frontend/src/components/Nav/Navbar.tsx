@@ -5,35 +5,36 @@ import {useState} from "react";
 
 /* module */
 import {
-  getLocalStoreges,
-  setLocalStoreges,
+  getLocalStorege,
+  setLocalStorege,
 } from "../../localStorages/localStorage";
 
 /* component */
 import PopUp from "./Popup";
 
-export default function Navbar() {
-  const [history, setHistory] = useState<string[]>(getLocalStoreges() ?? []);
+/*  */
+type params = {
+  setQueryLocation: React.Dispatch<React.SetStateAction<string>>;
+};
 
-  const [value, setValue] = useState<string>("");
-  const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
+export default function Navbar({setQueryLocation}: params) {
+  const [history, setHistory] = useState<string[]>(getLocalStorege() ?? []);
+
+  const [formValue, setFormValue] = useState<string>("");
+  const [isPopupActive, setIsPopupActive] = useState<boolean>(true);
 
   function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const trimmedValue = value.trim();
-    if (!trimmedValue) return;
+    if (!history.includes(formValue)) {
+      const updateHistory = [formValue.trim(), ...history];
+      setHistory(updateHistory);
+      setLocalStorege(updateHistory);
+    }
 
-    const newHistory = [trimmedValue, ...history];
-
-    setHistory(newHistory);
-    setLocalStoreges(newHistory);
-
-    setValue("");
-  }
-
-  function handleSubmitPopup() {
-    alert("querry");
+    setQueryLocation(formValue);
+    setFormValue("");
+    setIsPopupActive(false);
   }
 
   return (
@@ -41,7 +42,6 @@ export default function Navbar() {
       <div
         className="w-full max-w-199.5 h-auto flex flex-col gap-1"
         onMouseLeave={() => setIsPopupActive(false)}
-        onMouseEnter={() => setIsPopupActive(true)}
       >
         {/* FORM */}
         <form
@@ -52,8 +52,9 @@ export default function Navbar() {
             className="w-full max-w-[798px] h-full outline-none pl-10"
             type="text"
             placeholder="location"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            onClick={() => setIsPopupActive(true)}
           />
 
           <button
@@ -68,8 +69,7 @@ export default function Navbar() {
         {isPopupActive && history.length !== 0 && (
           <PopUp
             history={history}
-            setValue={setValue}
-            handleSubmitPopup={handleSubmitPopup}
+            setQueryLocation={setQueryLocation}
             setPopupaCtive={setIsPopupActive}
           />
         )}
@@ -78,10 +78,10 @@ export default function Navbar() {
       {/* SOCIAL MEDIA */}
       <div className="w-full max-w-25 h-9.75 hidden lg:flex justify-around items-center">
         <a href="https://github.com/Crijo-Mcal/Weather-API">
-          <img className="w-8 h-8 cursor-pointer" src={instagramIcon} />
+          <img className="w-8 h-8 cursor-pointer" src={githubIcon} />
         </a>
         <a href="https://www.instagram.com/crijo95/">
-          <img className="w-8 h-8 cursor-pointer" src={githubIcon} />
+          <img className="w-8 h-8 cursor-pointer" src={instagramIcon} />
         </a>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 const key = "morglia"
 
-export function getLocalStoreges(): string[] | null {
+export function getLocalStorege(): string[] | null {
     const response = localStorage.getItem(key);
 
     if (typeof response == "string") {
@@ -11,7 +11,7 @@ export function getLocalStoreges(): string[] | null {
 }
 
 
-export function setLocalStoreges(history: string[]): void {
+export function setLocalStorege(history: string[]): void {
     const response = localStorage.getItem(key);
     let data: string[] = []
     if (typeof response == "string") {

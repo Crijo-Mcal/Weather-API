@@ -8,3 +8,8 @@ export function temperatureConverter(value: number, action: unit): number {
 
     return Math.round(value);
 }
+
+
+export function dateToString(date: string) {
+    return new Date(date).toLocaleDateString("en-US", { weekday: "long" })
+}
