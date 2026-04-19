@@ -6,7 +6,7 @@ const baseUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/re
 export default async function apiCall(location) {
     try {
         const dates = getDatesange();
-        const respose = await fetch(`${baseUrl}${location}/${dates.date1}/${dates.date2}?key=${apiKey}`);
+        const respose = await fetch(`${baseUrl}${location}/${dates.date1}/${dates.date2}?key=${apiKey}&unitGroup=metric`);
         if (respose.ok === false) {
             throw new Error("page not found");
         }
