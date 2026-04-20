@@ -20,13 +20,15 @@ export default function location({
   setTemperatureUnit,
 }: Props) {
   return (
-    <div className="absolute top-2 px-6 w-full h-18.75  flex items-center justify-between  text-primary">
+    <div className="absolute top-3 px-6 w-full h-18.75  flex items-center justify-between  text-primary ">
       <div className="w-auto h-full flex  gap-3">
         <img className="w-16.25 h-16.25" src={img} alt="default" />
         <div className="font-medium">
-          <h1 className=" text-[20px]">{resolvedLocationName}</h1>
-          <h1 className=" text-[16px] ">
-            <span className="text-[20px]">
+          <h1 className=" text-[20px] text-shadow-2xs">
+            {resolvedLocationName}
+          </h1>
+          <h1>
+            <span className="text-[16px]">
               {selectedDayWeather?.datetime &&
                 dateToString(selectedDayWeather?.datetime)}
             </span>

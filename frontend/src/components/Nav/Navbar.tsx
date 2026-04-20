@@ -21,7 +21,7 @@ export default function Navbar({setQueryLocation}: params) {
   const [history, setHistory] = useState<string[]>(getLocalStorege() ?? []);
 
   const [formValue, setFormValue] = useState<string>("");
-  const [isPopupActive, setIsPopupActive] = useState<boolean>(true);
+  const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
 
   function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

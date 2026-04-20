@@ -12,16 +12,20 @@ export default function WeatherChart({
   temperatureUnit,
 }: params) {
   const data = selectedDayWeather?.hours ?? [];
+  let dataEdit = data.filter((_, y) => y % 2 == 0);
 
   return (
-    <div className="w-full  max-w-[893px] h-[149px] bg-bg md:rounded-default ">
+    <div className="w-full  max-w-[893px] h-[149px] bg-bg lg:rounded-default shadow-lg shadow-gradient2">
       {data && (
         <ResponsiveContainer>
           <AreaChart
-            data={data}
+            data={dataEdit}
             margin={{top: 30, right: 20, left: 20, bottom: 10}}
           >
-            <XAxis dataKey="datetime" />
+            <XAxis
+              dataKey="datetime"
+              tickFormatter={(value) => value.slice(0, 5)}
+            />
             <YAxis hide />
 
             <Area
@@ -31,7 +35,7 @@ export default function WeatherChart({
               fill="#969899"
               dot={({cx, cy, payload}) => (
                 <g>
-                  <circle cx={cx} cy={cy} r={5} fill="#FFFFFF" />
+                  <circle cx={cx} cy={cy} r={3} fill="#FFFFFF" />
                   <text
                     x={cx}
                     y={cy}

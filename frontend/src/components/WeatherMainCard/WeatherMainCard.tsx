@@ -27,7 +27,7 @@ export default function WeatherMainCard({
   const condition = selectedDayWeather?.conditions ?? null;
 
   return (
-    <section className="relative w-full md:w-106.75 h-74.75 flex flex-col justify-center   bg-bg md:rounded-default overflow-hidden m-2 ">
+    <section className="relative lg:shadow-lg shadow-gradient2  w-full lg:w-106.75 lg:h-74.75 flex flex-col justify-center   bg-bg md:rounded-default  ">
       {selectedDayWeather && (
         <>
           <Location
@@ -38,8 +38,8 @@ export default function WeatherMainCard({
             setTemperatureUnit={setTemperatureUnit}
           />
 
-          <div className="w-full h-50 mb-10  flex flex-col justify-center items-center overflow-hidden">
-            <h1 className=" text-primary text-[102px] text- font-bold ">
+          <div className="w-full h-50 mb-10 mt-5  flex flex-col justify-center items-center overflow-hidden ">
+            <h1 className=" text-primary text-[70px] lg:text-[102px]  font-bold  ">
               {temp && temperatureConverter(temp, temperatureUnit)}°
             </h1>
             <h2 className="text-[20px] text-primary font-medium">
