@@ -20,7 +20,7 @@ export default async function apiCall(location) {
 function getDatesange() {
     const today = new Date();
     const next7Days = new Date();
-    next7Days.setDate(today.getDate() + 7);
+    next7Days.setDate(today.getDate() + 6);
     const date1 = today.toISOString().split('T')[0];
     const date2 = next7Days.toISOString().split('T')[0];
     return { date1, date2 };

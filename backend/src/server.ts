@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import weatherRouter from "./router/weatherRouter.js";
+import weatherRouter from "./router/weather.route.js";
 import { limiter } from "./middleware/rateLimit.js";
 import { auth } from "./middleware/auth.js"
 import cors from "cors";
@@ -11,7 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use('/api', limiter, auth);
+
+app.use('/api', auth, limiter)
 
 /* weather router */
 app.use('/api', weatherRouter)
