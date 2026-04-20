@@ -49,35 +49,39 @@ function App() {
         <section className="relative w-full max-w-[953px] h-full  lg:max-h-[605px]   md:rounded-default bg-gradient1 ">
           <Navbar setQueryLocation={setQueryLocation} />
 
-          <div className="w-full h-auto mt-6 gap-6 lg:gap-0 flex flex-col   lg:flex-row justify-evenly items-center ">
-            <WeatherMainCard
-              selectedDayWeather={selectedDayWeather}
-              resolvedLocationName={resolvedLocationName}
-              timezone={timezone}
-              temperatureUnit={temperatureUnit}
-              setTemperatureUnit={setTemperatureUnit}
-            />
+          {weatherData && (
+            <>
+              <div className="w-full h-auto mt-6 gap-6 lg:gap-0 flex flex-col   lg:flex-row justify-evenly items-center ">
+                <WeatherMainCard
+                  selectedDayWeather={selectedDayWeather}
+                  resolvedLocationName={resolvedLocationName}
+                  timezone={timezone}
+                  temperatureUnit={temperatureUnit}
+                  setTemperatureUnit={setTemperatureUnit}
+                />
 
-            <div className="w-full h-auto  lg:hidden flex justify-center ">
-              <WeatherChart
-                selectedDayWeather={selectedDayWeather}
-                temperatureUnit={temperatureUnit}
-              />
-            </div>
+                <div className="w-full h-auto  lg:hidden flex justify-center ">
+                  <WeatherChart
+                    selectedDayWeather={selectedDayWeather}
+                    temperatureUnit={temperatureUnit}
+                  />
+                </div>
 
-            <ForecastList
-              weatherData={weatherData}
-              temperatureUnit={temperatureUnit}
-              selectedDayIndex={selectedDayIndex}
-              setSelectedDayIndex={setSelectedDayIndex}
-            />
-          </div>
-          <div className="w-full h-auto mt-10 hidden lg:flex justify-center ">
-            <WeatherChart
-              selectedDayWeather={selectedDayWeather}
-              temperatureUnit={temperatureUnit}
-            />
-          </div>
+                <ForecastList
+                  weatherData={weatherData}
+                  temperatureUnit={temperatureUnit}
+                  selectedDayIndex={selectedDayIndex}
+                  setSelectedDayIndex={setSelectedDayIndex}
+                />
+              </div>
+              <div className="w-full h-auto mt-10 hidden lg:flex justify-center ">
+                <WeatherChart
+                  selectedDayWeather={selectedDayWeather}
+                  temperatureUnit={temperatureUnit}
+                />
+              </div>
+            </>
+          )}
         </section>
       </main>
     </>

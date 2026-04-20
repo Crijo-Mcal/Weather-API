@@ -17,7 +17,7 @@ export default function WeatherChart({
   return (
     <div className="w-full  max-w-[893px] h-[149px] bg-bg lg:rounded-default shadow-lg shadow-gradient2">
       {data && (
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={149}>
           <AreaChart
             data={dataEdit}
             margin={{top: 30, right: 20, left: 20, bottom: 10}}
