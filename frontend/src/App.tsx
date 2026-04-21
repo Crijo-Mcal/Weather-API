@@ -1,37 +1,46 @@
+import { useEffect, useState } from "react";
+
+/* services */
+import apicall from "./services/apiHandle";
+import { getLocalStorege, setLocalStorege } from "./services/localStorage";
+
+/* tipy and image */
+import type { ResponseData } from "./types/WeatherData";
 import imgBg from "./assets/img/bg.webp";
 
 /* components */
+import Footer from "./components/Footer";
 import Navbar from "./components/Nav/Navbar";
 import WeatherMainCard from "./components/WeatherMainCard/WeatherMainCard";
-import ForecastList from "./components/ForecastList/ForecastList";
-import WeatherChart from "./components/WeatherChart/WeatherChart";
-
-import {useEffect, useState} from "react";
-
-import apicall from "./api/apiHandle";
-
-import type {WeatherData} from "./types/WeatherData";
+import ForecastList from "./components/ForecastList";
+import WeatherChart from "./components/WeatherChart";
 
 function App() {
   // 🔹 State
+  const [history, setHistory] = useState<string[]>([]);
   const [queryLocation, setQueryLocation] = useState<string>("coimbra");
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<ResponseData | null>(null);
   const [temperatureUnit, setTemperatureUnit] = useState<"C" | "F">("C");
 
   // 🔹 Derived data
+  const resolvedLocationName = weatherData?.data?.resolvedAddress ?? null;
+  const timezone = weatherData?.data?.timezone ?? null;
+  const selectedDayWeather =
+    weatherData?.data?.days?.[selectedDayIndex] ?? null;
 
-  const resolvedLocationName = weatherData?.resolvedAddress ?? null;
-  const timezone = weatherData?.timezone ?? null;
-  const selectedDayWeather = weatherData?.days?.[selectedDayIndex] ?? null;
-
-  // 🔹 Fetching
   useEffect(() => {
     if (!queryLocation) return;
 
     async function fetchWeather() {
       const result = await apicall(queryLocation);
       setWeatherData(result);
+
+      /* save localstorage */
+      if (result && result.data) {
+        setLocalStorege(result.data.address);
+        setHistory(getLocalStorege());
+      }
     }
 
     fetchWeather();
@@ -39,19 +48,23 @@ function App() {
 
   return (
     <>
-      {/* background */}
       <main
-        className="m-0 p-0 relative h-screen w-full bg-center bg-cover bg-no-repeat flex justify-center items-center font-ALpino text-[16px]"
-        style={{backgroundImage: `url(${imgBg})`}}
+        className="font-ALpino relative m-0 flex h-screen w-full items-center justify-center bg-cover bg-center bg-no-repeat p-0 text-[16px]"
+        style={{ backgroundImage: `url(${imgBg})` }}
       >
-        <div className="absolute w-full h-full bg-black opacity-35"></div>
+        <div className="absolute h-full w-full bg-black opacity-35"></div>
 
-        <section className="relative w-full max-w-[953px] h-full  lg:max-h-[605px]   md:rounded-default bg-gradient1 ">
-          <Navbar setQueryLocation={setQueryLocation} />
+        <section className="md:rounded-default bg-gradient1 relative h-full w-full max-w-238.25 lg:max-h-151.25">
+          <Navbar
+            setQueryLocation={setQueryLocation}
+            setWeatherData={setWeatherData}
+            history={history}
+          />
 
-          {weatherData && (
+          {/* main info */}
+          {weatherData && weatherData.success && (
             <>
-              <div className="w-full h-auto mt-6 gap-6 lg:gap-0 flex flex-col   lg:flex-row justify-evenly items-center ">
+              <div className="mt-6 flex h-auto w-full flex-col items-center justify-evenly gap-6 lg:flex-row lg:gap-0">
                 <WeatherMainCard
                   selectedDayWeather={selectedDayWeather}
                   resolvedLocationName={resolvedLocationName}
@@ -60,7 +73,7 @@ function App() {
                   setTemperatureUnit={setTemperatureUnit}
                 />
 
-                <div className="w-full h-auto  lg:hidden flex justify-center ">
+                <div className="flex h-auto w-full justify-center lg:hidden">
                   <WeatherChart
                     selectedDayWeather={selectedDayWeather}
                     temperatureUnit={temperatureUnit}
@@ -74,7 +87,7 @@ function App() {
                   setSelectedDayIndex={setSelectedDayIndex}
                 />
               </div>
-              <div className="w-full h-auto mt-10 hidden lg:flex justify-center ">
+              <div className="mt-10 hidden h-auto w-full justify-center lg:flex">
                 <WeatherChart
                   selectedDayWeather={selectedDayWeather}
                   temperatureUnit={temperatureUnit}
@@ -82,6 +95,38 @@ function App() {
               </div>
             </>
           )}
+
+          {/* error hadle */}
+          {weatherData && !weatherData.success && (
+            <div className="mt-6 flex h-[80%] w-full justify-center">
+              <div className="bg-bg rounded-default flex h-full w-[94%] items-center justify-center">
+                {weatherData && !weatherData.success && (
+                  <div className="text-[20px] text-red-400">
+                    {weatherData.err?.status !== 500 && (
+                      <h1 className="text-[20px] text-red-400">
+                        {weatherData.err?.message}
+                      </h1>
+                    )}
+                    {weatherData.err?.status === 500 && (
+                      <h1 className="text-[20px] text-yellow-400">
+                        {weatherData.err?.message}
+                      </h1>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* loading */}
+          {!weatherData && (
+            <div className="mt-6 flex h-[80%] w-full justify-center">
+              <div className="bg-bg rounded-default flex h-full w-[94%] items-center justify-center">
+                <div className="border-gradient1 border-t-primary h-8 w-8 animate-spin rounded-full border-4"></div>
+              </div>
+            </div>
+          )}
+          <Footer />
         </section>
       </main>
     </>

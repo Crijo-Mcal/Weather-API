@@ -3,10 +3,10 @@ import Location from "./Location";
 import WeatherStats from "./WeatherStats";
 
 /* utility */
-import {temperatureConverter} from "../../utility/utility";
+import { temperatureConverter } from "../../utility/utility";
 
 /* type */
-import type {Day} from "../../types/WeatherData";
+import type { Day } from "../../types/WeatherData";
 
 type Props = {
   selectedDayWeather: Day | null;
@@ -27,7 +27,7 @@ export default function WeatherMainCard({
   const condition = selectedDayWeather?.conditions ?? null;
 
   return (
-    <section className="relative lg:shadow-lg shadow-gradient2  w-full lg:w-106.75 lg:h-74.75 flex flex-col justify-center   bg-bg md:rounded-default  ">
+    <section className="shadow-gradient2 bg-bg md:rounded-default relative flex w-full flex-col justify-center lg:h-74.75 lg:w-106.75 lg:shadow-lg">
       {selectedDayWeather && (
         <>
           <Location
@@ -38,11 +38,11 @@ export default function WeatherMainCard({
             setTemperatureUnit={setTemperatureUnit}
           />
 
-          <div className="w-full h-50 mb-10 mt-5  flex flex-col justify-center items-center overflow-hidden ">
-            <h1 className=" text-primary text-[70px] lg:text-[102px]  font-bold  ">
+          <div className="mt-5 mb-10 flex h-50 w-full flex-col items-center justify-center overflow-hidden">
+            <h1 className="text-primary text-[90px] font-bold">
               {temp && temperatureConverter(temp, temperatureUnit)}°
             </h1>
-            <h2 className="text-[20px] text-primary font-medium">
+            <h2 className="text-primary text-[20px] font-medium">
               {condition}
             </h2>
           </div>

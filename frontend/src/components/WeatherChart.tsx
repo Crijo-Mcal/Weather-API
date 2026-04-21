@@ -1,6 +1,6 @@
-import {AreaChart, Area, ResponsiveContainer, XAxis, YAxis} from "recharts";
-import type {Day} from "../../types/WeatherData";
-import {temperatureConverter} from "../../utility/utility";
+import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import type { Day } from "../types/WeatherData";
+import { temperatureConverter } from "../utility/utility";
 
 type params = {
   selectedDayWeather: Day | null;
@@ -15,12 +15,12 @@ export default function WeatherChart({
   let dataEdit = data.filter((_, y) => y % 2 == 0);
 
   return (
-    <div className="w-full  max-w-[893px] h-[149px] bg-bg lg:rounded-default shadow-lg shadow-gradient2">
+    <div className="bg-bg lg:rounded-default shadow-gradient2 h-37.25 w-full max-w-223.25 shadow-lg">
       {data && (
         <ResponsiveContainer width="100%" height={149}>
           <AreaChart
             data={dataEdit}
-            margin={{top: 30, right: 20, left: 20, bottom: 10}}
+            margin={{ top: 30, right: 20, left: 20, bottom: 10 }}
           >
             <XAxis
               dataKey="datetime"
@@ -33,7 +33,7 @@ export default function WeatherChart({
               dataKey="temp"
               stroke="none"
               fill="#969899"
-              dot={({cx, cy, payload}) => (
+              dot={({ cx, cy, payload }) => (
                 <g>
                   <circle cx={cx} cy={cy} r={3} fill="#FFFFFF" />
                   <text

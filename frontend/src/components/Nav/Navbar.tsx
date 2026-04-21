@@ -1,55 +1,51 @@
+import { useState } from "react";
+
+/* images */
 import searchIcon from "../../assets/img/search.png";
 import instagramIcon from "../../assets/img/instagram.png";
 import githubIcon from "../../assets/img/github.png";
-import {useState} from "react";
 
-/* module */
-import {
-  getLocalStorege,
-  setLocalStorege,
-} from "../../localStorages/localStorage";
-
-/* component */
+/* components */
 import PopUp from "./Popup";
+import type { ResponseData } from "../../types/WeatherData";
 
-/*  */
+/*type*/
 type params = {
   setQueryLocation: React.Dispatch<React.SetStateAction<string>>;
+  setWeatherData: React.Dispatch<React.SetStateAction<ResponseData | null>>;
+  history: string[];
 };
 
-export default function Navbar({setQueryLocation}: params) {
-  const [history, setHistory] = useState<string[]>(getLocalStorege() ?? []);
-
+export default function Navbar({
+  setQueryLocation,
+  setWeatherData,
+  history,
+}: params) {
   const [formValue, setFormValue] = useState<string>("");
   const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
 
   function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!history.includes(formValue)) {
-      const updateHistory = [formValue.trim(), ...history];
-      setHistory(updateHistory);
-      setLocalStorege(updateHistory);
-    }
-
+    setWeatherData(null);
     setQueryLocation(formValue);
     setFormValue("");
     setIsPopupActive(false);
   }
 
   return (
-    <nav className="sticky top-0 md:relative w-full h-20 sm:h-auto  sm:mt-6  flex justify-center items-center z-10  bg-bg sm:bg-transparent">
+    <nav className="bg-bg sticky top-0 z-10 flex h-20 w-full items-center justify-center sm:mt-6 sm:h-auto sm:bg-transparent md:relative">
       <div
-        className="w-full max-w-199.5 h-auto flex flex-col gap-1"
+        className="flex h-auto w-full max-w-199.5 flex-col gap-1"
         onMouseLeave={() => setIsPopupActive(false)}
       >
         {/* FORM */}
         <form
-          className="w-full max-w-199.5 h-9.75 bg-primary rounded-default overflow-hidden flex justify-center "
+          className="bg-primary rounded-default flex h-9.75 w-full max-w-199.5 justify-center overflow-hidden"
           onSubmit={handleSubmitForm}
         >
           <input
-            className="w-full max-w-[798px] h-full outline-none pl-10"
+            className="h-full w-full max-w-199.5 pl-10 outline-none"
             type="text"
             placeholder="location"
             value={formValue}
@@ -58,10 +54,10 @@ export default function Navbar({setQueryLocation}: params) {
           />
 
           <button
-            className="w-[20%] h-full flex justify-center items-center"
+            className="flex h-full w-[20%] items-center justify-center"
             type="submit"
           >
-            <img className="w-6 h-6" src={searchIcon} alt="searchIcon" />
+            <img className="h-6 w-6" src={searchIcon} alt="searchIcon" />
           </button>
         </form>
 
@@ -71,17 +67,18 @@ export default function Navbar({setQueryLocation}: params) {
             history={history}
             setQueryLocation={setQueryLocation}
             setPopupaCtive={setIsPopupActive}
+            setWeatherData={setWeatherData}
           />
         )}
       </div>
 
-      {/* SOCIAL MEDIA */}
-      <div className="w-full max-w-25 h-9.75 hidden lg:flex justify-around items-center">
+      {/*social media*/}
+      <div className="hidden h-9.75 w-full max-w-25 items-center justify-around lg:flex">
         <a href="https://github.com/Crijo-Mcal/Weather-API">
-          <img className="w-8 h-8 cursor-pointer" src={githubIcon} />
+          <img className="h-8 w-8 cursor-pointer" src={githubIcon} />
         </a>
         <a href="https://www.instagram.com/crijo95/">
-          <img className="w-8 h-8 cursor-pointer" src={instagramIcon} />
+          <img className="h-8 w-8 cursor-pointer" src={instagramIcon} />
         </a>
       </div>
     </nav>

@@ -18,17 +18,17 @@ export const getWeather = async (req: Request, res: Response) => {
         if (isDataExistOnRedis) {
             const dataRedis = await getRedis(locationKey)
             console.log("take data from redis");
-            return res.status(200).json(dataRedis)
+            return res.status(200).json({ susuccess: true, data: dataRedis })
         }
 
         /* handle servise api weather */
         const serviseData = await getWeatherByLocation(locationKey)
         await setRedis(locationKey, serviseData)
         console.log("take data from servise");
-        return res.status(200).json(serviseData)
+        return res.status(200).json({ susuccess: true, data: serviseData })
 
     } catch (err: any) {
-        return res.status(err.status || 500).json({ err: err.message })
+        return res.status(err.status).json({ success: false, err: { status: err.status, message: err.message } })
 
     }
 }

@@ -19,9 +19,22 @@ export type Day = {
 
 export type WeatherData = {
     resolvedAddress: string,
+    address: string,
     description: string,
     timezone: string,
     days: Day[]
 }
+
+export type ErrData = {
+    status: number,
+    message: string
+}
+
+export type ResponseData = {
+    success: boolean
+    data?: WeatherData
+    err?: ErrData
+}
+
 
 
