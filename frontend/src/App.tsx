@@ -48,11 +48,13 @@ function App() {
 
   return (
     <>
-      <main
-        className="font-ALpino relative m-0 flex h-screen w-full items-center justify-center bg-cover bg-center bg-no-repeat p-0 text-[16px]"
-        style={{ backgroundImage: `url(${imgBg})` }}
-      >
-        <div className="absolute h-full w-full bg-black opacity-35"></div>
+      <main className="font-ALpino relative m-0 flex h-screen w-full items-center justify-center text-[16px]">
+        <img
+          className="absolute hidden h-full w-full object-cover object-center lg:flex"
+          src={imgBg}
+          alt="bgimg"
+        />
+        <div className="absolute hidden h-full w-full bg-black opacity-70 lg:flex"></div>
 
         <section className="md:rounded-default bg-gradient1 relative h-full w-full max-w-238.25 lg:max-h-151.25">
           <Navbar
