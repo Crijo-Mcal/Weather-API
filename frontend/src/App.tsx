@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import { useEffect, useState } from "react";
 
 /* services */
@@ -57,7 +59,12 @@ function App() {
         />
         <div className="absolute hidden h-full w-full bg-black opacity-70 lg:flex"></div>
 
-        <section className="md:rounded-default bg-gradient1 relative h-full w-full max-w-238.25 lg:max-h-151.25">
+        <motion.section
+          className="md:rounded-default bg-gradient1 relative h-full w-full max-w-238.25 lg:max-h-151.25"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 100, y: 1 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
           <Navbar
             setQueryLocation={setQueryLocation}
             setWeatherData={setWeatherData}
@@ -102,7 +109,7 @@ function App() {
           {/* error hadle */}
           {weatherData && !weatherData.success && (
             <div className="mt-6 flex h-[80%] w-full justify-center">
-              <div className="bg-bg rounded-default flex h-full w-[94%] items-center justify-center">
+              <div className="rounded-default flex h-full w-[94%] items-center justify-center">
                 {weatherData && !weatherData.success && (
                   <div className="text-[20px] text-red-400">
                     {weatherData.err?.status !== 500 && (
@@ -124,13 +131,13 @@ function App() {
           {/* loading */}
           {!weatherData && (
             <div className="mt-6 flex h-[80%] w-full justify-center">
-              <div className="bg-bg rounded-default flex h-full w-[94%] items-center justify-center">
+              <div className="rounded-default flex h-full w-[94%] items-center justify-center">
                 <div className="border-gradient1 border-t-primary h-8 w-8 animate-spin rounded-full border-4"></div>
               </div>
             </div>
           )}
           <Footer />
-        </section>
+        </motion.section>
       </main>
     </>
   );

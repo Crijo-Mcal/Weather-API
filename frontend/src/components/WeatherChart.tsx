@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import type { Day } from "../types/WeatherData";
 import { temperatureConverter } from "../utility/utility";
@@ -15,7 +16,12 @@ export default function WeatherChart({
   let dataEdit = data.filter((_, y) => y % 2 == 0);
 
   return (
-    <div className="bg-bg lg:rounded-default shadow-gradient2 h-37.25 w-full max-w-223.25 shadow-lg">
+    <motion.section
+      className="bg-bg lg:rounded-default shadow-gradient2 h-37.25 w-full max-w-223.25 shadow-lg"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 100, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
       {data && (
         <ResponsiveContainer width="100%" height={149}>
           <AreaChart
@@ -33,6 +39,8 @@ export default function WeatherChart({
               dataKey="temp"
               stroke="none"
               fill="#969899"
+              animationBegin={500}
+              animationDuration={800}
               dot={({ cx, cy, payload }) => (
                 <g>
                   <circle cx={cx} cy={cy} r={3} fill="#FFFFFF" />
@@ -52,6 +60,6 @@ export default function WeatherChart({
           </AreaChart>
         </ResponsiveContainer>
       )}
-    </div>
+    </motion.section>
   );
 }

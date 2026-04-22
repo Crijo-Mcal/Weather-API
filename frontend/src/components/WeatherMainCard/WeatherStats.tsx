@@ -9,7 +9,7 @@ type Props = {
 
 export default function WeatherStats({ selectedDayWeather }: Props) {
   return (
-    <div className="absolute bottom-0 flex h-18.75 w-full justify-center gap-10">
+    <div className="flex h-20 w-full justify-center gap-10">
       <div className="flex items-center justify-center gap-2">
         <img className="ml-2 w-6.25" src={huminity} alt="huminity" />
         <h3 className="text-primary">{selectedDayWeather?.humidity}%</h3>

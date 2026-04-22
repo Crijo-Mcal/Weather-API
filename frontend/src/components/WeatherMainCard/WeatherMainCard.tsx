@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 /* components */
 import Location from "./Location";
 import WeatherStats from "./WeatherStats";
@@ -27,7 +28,12 @@ export default function WeatherMainCard({
   const condition = selectedDayWeather?.conditions ?? null;
 
   return (
-    <section className="shadow-gradient2 bg-bg md:rounded-default relative flex w-full flex-col justify-center lg:h-74.75 lg:w-106.75 lg:shadow-lg">
+    <motion.section
+      className="shadow-gradient2 bg-bg md:rounded-default relative flex h-90 w-full flex-col justify-between lg:h-74.75 lg:w-106.75 lg:shadow-lg"
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 100, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
       {selectedDayWeather && (
         <>
           <Location
@@ -38,10 +44,27 @@ export default function WeatherMainCard({
             setTemperatureUnit={setTemperatureUnit}
           />
 
-          <div className="mt-5 mb-10 flex h-50 w-full flex-col items-center justify-center overflow-hidden">
-            <h1 className="text-primary text-[90px] font-bold">
+          <div className="flex w-full flex-col items-center justify-center gap-1 overflow-hidden">
+            <h1 className="text-primary text-[100px] leading-none font-bold">
               {temp && temperatureConverter(temp, temperatureUnit)}°
             </h1>
+            <div className="text-primary flex w-full justify-center gap-2 font-mono text-[16px] font-light italic">
+              <h1>
+                {temperatureConverter(
+                  selectedDayWeather.tempmax,
+                  temperatureUnit,
+                )}
+                °
+              </h1>
+              <h1>|</h1>
+              <h1>
+                {temperatureConverter(
+                  selectedDayWeather.tempmin,
+                  temperatureUnit,
+                )}
+                °
+              </h1>
+            </div>
             <h2 className="text-primary text-[20px] font-medium">
               {condition}
             </h2>
@@ -50,6 +73,6 @@ export default function WeatherMainCard({
           <WeatherStats selectedDayWeather={selectedDayWeather} />
         </>
       )}
-    </section>
+    </motion.section>
   );
 }

@@ -20,7 +20,7 @@ export default function location({
   setTemperatureUnit,
 }: Props) {
   return (
-    <div className="text-primary absolute top-0 flex h-18 w-full items-center justify-between px-6">
+    <div className="text-primary flex h-20 w-full items-center justify-between px-6">
       <div className="flex h-auto w-auto gap-3">
         {selectedDayWeather && selectedDayWeather.icon && (
           <img
@@ -31,9 +31,11 @@ export default function location({
         )}
 
         <div className="flex h-15 flex-col justify-center font-medium">
-          {resolvedLocationName && !isLatLng(resolvedLocationName) && (
+          {resolvedLocationName && (
             <h1 className="w-screen max-w-55 truncate text-[20px] text-shadow-2xs">
-              {resolvedLocationName}
+              {isLatLng(resolvedLocationName) && "Your Location"}
+              {!isLatLng(resolvedLocationName) &&
+                resolvedLocationName.split(",")[0]}
             </h1>
           )}
 
@@ -48,16 +50,16 @@ export default function location({
         </div>
       </div>
 
-      <h1 className="text-2xl">
+      <h1 className="text-[25px] font-light">
         <span
-          className={`cursor-pointer ${temperatureUnit === "C" ? "opacity-100" : "opacity-50"}`}
+          className={`cursor-pointer ${temperatureUnit === "C" ? "text-[35px] opacity-100" : "text-[25px] opacity-50"}`}
           onClick={() => setTemperatureUnit("C")}
         >
           C
         </span>
         /
         <samp
-          className={`cursor-pointer ${temperatureUnit === "F" ? "opacity-100" : "opacity-50"}`}
+          className={`cursor-pointer ${temperatureUnit === "F" ? "text-[35px] opacity-100" : "text-[25px] opacity-50"}`}
           onClick={() => setTemperatureUnit("F")}
         >
           F

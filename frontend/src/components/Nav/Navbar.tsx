@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 /* images */
 import searchIcon from "../../assets/img/search.png";
@@ -34,7 +35,12 @@ export default function Navbar({
   }
 
   return (
-    <nav className="bg-bg sticky top-0 z-10 flex h-20 w-full items-center justify-center sm:mt-6 sm:h-auto sm:bg-transparent md:relative">
+    <motion.nav
+      className="bg-bg sticky top-0 z-10 flex h-20 w-full items-center justify-center sm:mt-6 sm:h-auto sm:bg-transparent md:relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 100 }}
+      transition={{ delay: 0.5, duration: 0.5, ease: "easeInOut" }}
+    >
       <div
         className="flex h-auto w-full max-w-199.5 flex-col gap-1"
         onMouseLeave={() => setIsPopupActive(false)}
@@ -81,6 +87,6 @@ export default function Navbar({
           <img className="h-8 w-8 cursor-pointer" src={instagramIcon} />
         </a>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import type { ResponseData } from "../../types/WeatherData";
 type Props = {
   history: string[];
@@ -13,7 +14,12 @@ export default function PopUp({
   setWeatherData,
 }: Props) {
   return (
-    <div className="bg-primary rounded-default absolute top-15 flex min-h-20 w-full max-w-199.5 flex-col items-center py-4 sm:max-w-90 md:top-10">
+    <motion.div
+      className="bg-primary rounded-default absolute top-15 flex min-h-20 w-full max-w-199.5 flex-col items-center py-4 sm:max-w-90 md:top-10"
+      initial={{ x: -10 }}
+      animate={{ x: 1 }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+    >
       <h1>Recent</h1>
 
       {history && (
@@ -21,7 +27,7 @@ export default function PopUp({
           {history.map((x, y) => (
             <li
               key={y}
-              className="border-bg flex-1 cursor-pointer truncate pl-1 text-center text-slate-500 hover:border-b"
+              className="border-bg w-19 cursor-pointer truncate pl-1 text-center text-slate-500 hover:border-b"
               onClick={() => {
                 setQueryLocation(x);
                 setPopupaCtive(false);
@@ -33,6 +39,6 @@ export default function PopUp({
           ))}
         </ol>
       )}
-    </div>
+    </motion.div>
   );
 }
