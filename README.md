@@ -30,6 +30,7 @@ Frontend → Backend → Redis Cache
                      ↓
           Store in Cache → Return to Frontend
 
+```
 
 ## 🖥️ Frontend:
 
@@ -41,6 +42,7 @@ Framer Motion (animations & transitions)
 Local Storage (search history persistence)
 
 ## ⚙️ Backend:
+
 Node.js
 Express
 TypeScript
@@ -50,19 +52,23 @@ Rate Limiting (API protection)
 API Key Authentication (secure access control)
 
 ## 🌐 External Service
+
 Visual Crossing Weather API
 
 ## 🚀 Deployment
+
 Frontend: Vercel
 Backend: Render
 
 ## 🎨 UI/UX Design
+
 All UI and layout design were created independently, focusing on:
 Clean and minimal interface
 Responsive design for all devices
 Smooth user experience with animations
 
 ## ⚡ Features
+
 🔍 Search weather by location
 ⚡ Fast response using Redis caching
 📊 Weather visualization charts
@@ -72,8 +78,8 @@ Smooth user experience with animations
 🚀 Fully deployed fullstack application
 
 ## 📚 Project Inspiration
+
 This project was inspired by a project idea from roadmap.sh and extended with real-world improvements such as caching, authentication, rate limiting, and full deployment setup.
 
 Roadmap url: https://roadmap.sh/projects/weather-api-wrapper-service
 Deploy: https://weather-api-theta-seven.vercel.app/
-```
