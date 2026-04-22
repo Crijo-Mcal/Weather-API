@@ -17,11 +17,11 @@ export default function PopUp({
       <h1>Recent</h1>
 
       {history && (
-        <ol className="flex w-[90%] flex-wrap justify-center gap-2">
+        <ol className="flex w-[90%] flex-wrap gap-2">
           {history.map((x, y) => (
             <li
               key={y}
-              className="border-bg h-5 w-16 cursor-pointer truncate pl-1 text-center text-slate-500 hover:border-b"
+              className="border-bg flex-1 cursor-pointer truncate pl-1 text-center text-slate-500 hover:border-b"
               onClick={() => {
                 setQueryLocation(x);
                 setPopupaCtive(false);

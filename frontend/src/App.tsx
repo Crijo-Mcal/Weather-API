@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
 /* services */
-import apicall from "./services/apiHandle";
+import apicall from "./services/backend_Api_Handle";
 import { getLocalStorege, setLocalStorege } from "./services/localStorage";
+
+/* utility */
+import { isLatLng } from "./utility/utility";
 
 /* tipy and image */
 import type { ResponseData } from "./types/WeatherData";
@@ -18,7 +21,7 @@ import WeatherChart from "./components/WeatherChart";
 function App() {
   // 🔹 State
   const [history, setHistory] = useState<string[]>([]);
-  const [queryLocation, setQueryLocation] = useState<string>("coimbra");
+  const [queryLocation, setQueryLocation] = useState<string>("");
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
   const [weatherData, setWeatherData] = useState<ResponseData | null>(null);
   const [temperatureUnit, setTemperatureUnit] = useState<"C" | "F">("C");
@@ -30,17 +33,15 @@ function App() {
     weatherData?.data?.days?.[selectedDayIndex] ?? null;
 
   useEffect(() => {
-    if (!queryLocation) return;
-
     async function fetchWeather() {
       const result = await apicall(queryLocation);
       setWeatherData(result);
 
       /* save localstorage */
-      if (result && result.data) {
+      if (result && result.data && !isLatLng(result.data.resolvedAddress)) {
         setLocalStorege(result.data.address);
-        setHistory(getLocalStorege());
       }
+      setHistory(getLocalStorege());
     }
 
     fetchWeather();

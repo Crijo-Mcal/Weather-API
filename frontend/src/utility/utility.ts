@@ -13,3 +13,14 @@ export function temperatureConverter(value: number, action: unit): number {
 export function dateToString(date: string) {
     return new Date(date).toLocaleDateString("en-US", { weekday: "long" })
 }
+
+export function isLatLng(input: string) {
+    const lat = input.split(",")[0];
+    const lng = input.split(",")[1];
+
+    if (!isNaN(Number(lat)) && !isNaN(Number(lng))) {
+        return true;
+    }
+
+    return false;
+}

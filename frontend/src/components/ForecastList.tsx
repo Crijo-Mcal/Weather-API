@@ -1,5 +1,5 @@
-import img from "../assets/img/default.png";
 import { temperatureConverter, dateToString } from "../utility/utility";
+import getWeatherIcon from "../utility/getWeatherIcon";
 
 /* type */
 import type { ResponseData } from "../types/WeatherData";
@@ -24,16 +24,22 @@ export default function ForecastList({
       {days &&
         days.map((day, y) => (
           <div
-            className={`bg-bg rounded-default flex h-23 w-22.5 transform cursor-pointer flex-col items-center justify-center transition-all duration-300 ease-in-out ${selectedDayIndex === y ? "shadow-gradient2 scale-106 shadow-lg" : "shadow-gradient1 scale-100 shadow-md"}`}
+            className={`bg-bg rounded-default flex h-30 w-22.5 transform cursor-pointer flex-col items-center justify-center gap-1.5 transition-all duration-300 ease-in-out ${selectedDayIndex === y ? "shadow-gradient2 scale-106 shadow-lg" : "shadow-gradient1 scale-100 shadow-md"}`}
             key={y}
             onClick={() => setSelectedDayIndex(y)}
           >
-            <img className="w-7.5" src={img} alt="image" />
-            <p>{dateToString(day.datetime)}</p>
+            <img
+              className="h-9 w-9"
+              src={getWeatherIcon(day.icon)}
+              alt={day.icon}
+            />
+
             <div className="flex w-full justify-center gap-2 text-[16px]">
               <h1>{temperatureConverter(day.tempmax, temperatureUnit)}°</h1>
               <h1>{temperatureConverter(day.tempmin, temperatureUnit)}°</h1>
             </div>
+
+            <p>{dateToString(day.datetime)}</p>
           </div>
         ))}
     </section>

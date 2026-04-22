@@ -13,7 +13,8 @@ export type Day = {
     humidity: number,
     windspeed: number,
     conditions: string,
-    hours: Hours[]
+    hours: Hours[],
+    icon: string
 
 }
 

@@ -1,12 +1,18 @@
 const api_key = import.meta.env.VITE_API_KEY;
 
 import type { ResponseData } from "../types/WeatherData";
+import getDataIpapi from "./ipapiApiHandle";
 
 export default async function apicall(location: string): Promise<ResponseData | null> {
 
     try {
-        /* const response = await fetch(`https://weather-api-oeta.onrender.com/api/weather/${location}?key=${api_key}`) */
-        const res = await fetch(`http://localhost:3000/api/weather/${location}?key=${api_key}`)
+
+        if (!location) {
+            location = await getDataIpapi();
+        }
+
+        const res = await fetch(`https://weather-api-oeta.onrender.com/api/weather/${location}?key=${api_key}`)
+
 
         const resData: ResponseData = await res.json();
 
@@ -19,7 +25,7 @@ export default async function apicall(location: string): Promise<ResponseData | 
 
     } catch (err: any) {
         console.error(err.message);
-        throw null;
+        return { success: false, err: { status: 400, message: "no internet" } };
     }
 
 }

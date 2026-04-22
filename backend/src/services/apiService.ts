@@ -41,6 +41,7 @@ export async function getWeatherByLocation(location: string): Promise<object> {
     }
 }
 
+
 function getDateRange(): { date1: string | undefined; date2: string | undefined } {
     const today = new Date();
     const next7Days = new Date();
