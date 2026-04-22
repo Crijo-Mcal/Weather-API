@@ -6,7 +6,7 @@ import { Redis } from "@upstash/redis";
 const redis = Redis.fromEnv();
 
 export async function setRedis(location: string, data: object): Promise<void> {
-    await redis.set(location, data, { ex: 1800 });
+    await redis.set(location, data, { ex: 900 });
 }
 
 export async function getRedis(location: string): Promise<object | null> {
