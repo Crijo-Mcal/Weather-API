@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 /* images */
 import searchIcon from "../../assets/img/search.png";
 import githubIcon from "../../assets/img/github.png";
+import iconImg from "../../assets/icon.svg";
 
 /* components */
 import PopUp from "./Popup";
@@ -62,6 +63,11 @@ export default function Navbar({
       animate={{ opacity: 100 }}
       transition={{ delay: 0.5, duration: 0.5, ease: "easeInOut" }}
     >
+      {/* brand icon */}
+      <a href="/" className="flex shrink-0 items-center" aria-label="Nimbo">
+        <img className="h-12 w-12" src={iconImg} alt="Nimbo" />
+      </a>
+
       <div
         ref={wrapperRef}
         className="relative flex h-auto w-full max-w-199.5 flex-col"
