@@ -1,14 +1,13 @@
 const api_key = import.meta.env.VITE_API_KEY;
 
 import type { ResponseData } from "../types/WeatherData";
-import getDataIpapi from "./ipapiApiHandle";
 
 export default async function apicall(location: string): Promise<ResponseData | null> {
 
     try {
 
         if (!location) {
-            location = await getDataIpapi();
+            return { success: false, err: { status: 400, message: "please enter a location" } };
         }
 
         const res = await fetch(`https://weather-api-oeta.onrender.com/api/weather/${location}?key=${api_key}`)

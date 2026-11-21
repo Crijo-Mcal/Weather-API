@@ -19,10 +19,11 @@ import Navbar from "./components/Nav/Navbar";
 import WeatherMainCard from "./components/WeatherMainCard/WeatherMainCard";
 import ForecastList from "./components/ForecastList";
 import WeatherChart from "./components/WeatherChart";
+import LocationPrompt from "./components/LocationPrompt";
 
 function App() {
   // 🔹 State
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState<string[]>(() => getLocalStorege());
   const [queryLocation, setQueryLocation] = useState<string>("");
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
   const [weatherData, setWeatherData] = useState<ResponseData | null>(null);
@@ -35,6 +36,9 @@ function App() {
     weatherData?.data?.days?.[selectedDayIndex] ?? null;
 
   useEffect(() => {
+    // no location chosen yet: wait for the user to enter one
+    if (!queryLocation) return;
+
     async function fetchWeather() {
       const result = await apicall(queryLocation);
       setWeatherData(result);
@@ -128,8 +132,13 @@ function App() {
             </div>
           )}
 
+          {/* first visit: ask the user for a location */}
+          {!queryLocation && !weatherData && (
+            <LocationPrompt />
+          )}
+
           {/* loading */}
-          {!weatherData && (
+          {queryLocation && !weatherData && (
             <div className="mt-6 flex h-[80%] w-full justify-center">
               <div className="rounded-default flex h-full w-[94%] items-center justify-center">
                 <div className="border-gradient1 border-t-primary h-8 w-8 animate-spin rounded-full border-4"></div>

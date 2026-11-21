@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 /* images */
 import searchIcon from "../../assets/img/search.png";
-import instagramIcon from "../../assets/img/instagram.png";
 import githubIcon from "../../assets/img/github.png";
 
 /* components */
@@ -36,7 +35,7 @@ export default function Navbar({
 
   return (
     <motion.nav
-      className="bg-bg sticky top-0 z-10 flex h-20 w-full items-center justify-center sm:mt-6 sm:h-auto sm:bg-transparent md:relative"
+      className="bg-bg sticky top-0 z-10 flex h-20 w-full items-center justify-center gap-4 px-4 sm:mt-6 sm:h-auto sm:bg-transparent md:relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 100 }}
       transition={{ delay: 0.5, duration: 0.5, ease: "easeInOut" }}
@@ -51,7 +50,7 @@ export default function Navbar({
           onSubmit={handleSubmitForm}
         >
           <input
-            className="h-full w-full max-w-199.5 pl-10 outline-none"
+            className="h-full w-full max-w-199.5 px-4 outline-none"
             type="text"
             placeholder="location"
             value={formValue}
@@ -60,7 +59,7 @@ export default function Navbar({
           />
 
           <button
-            className="flex h-full w-[20%] items-center justify-center"
+            className="flex h-full w-14 shrink-0 items-center justify-center"
             type="submit"
           >
             <img className="h-6 w-6" src={searchIcon} alt="searchIcon" />
@@ -79,12 +78,9 @@ export default function Navbar({
       </div>
 
       {/*social media*/}
-      <div className="hidden h-9.75 w-full max-w-25 items-center justify-around lg:flex">
+      <div className="hidden h-9.75 shrink-0 items-center justify-center lg:flex">
         <a href="https://github.com/Crijo-Mcal/Weather-API">
           <img className="h-8 w-8 cursor-pointer" src={githubIcon} />
-        </a>
-        <a href="https://www.instagram.com/crijo95/">
-          <img className="h-8 w-8 cursor-pointer" src={instagramIcon} />
         </a>
       </div>
     </motion.nav>
