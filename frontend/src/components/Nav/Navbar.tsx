@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 /* images */
@@ -23,6 +23,28 @@ export default function Navbar({
 }: params) {
   const [formValue, setFormValue] = useState<string>("");
   const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // close the popup on tap/click outside (phones have no mouseleave) or Escape
+  useEffect(() => {
+    if (!isPopupActive) return;
+
+    function handlePointerDown(e: PointerEvent) {
+      if (!wrapperRef.current?.contains(e.target as Node)) {
+        setIsPopupActive(false);
+      }
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsPopupActive(false);
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isPopupActive]);
 
   function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,7 +63,8 @@ export default function Navbar({
       transition={{ delay: 0.5, duration: 0.5, ease: "easeInOut" }}
     >
       <div
-        className="flex h-auto w-full max-w-199.5 flex-col gap-1"
+        ref={wrapperRef}
+        className="relative flex h-auto w-full max-w-199.5 flex-col"
         onMouseLeave={() => setIsPopupActive(false)}
       >
         {/* FORM */}
@@ -55,6 +78,7 @@ export default function Navbar({
             placeholder="location"
             value={formValue}
             onChange={(e) => setFormValue(e.target.value)}
+            onFocus={() => setIsPopupActive(true)}
             onClick={() => setIsPopupActive(true)}
           />
 
